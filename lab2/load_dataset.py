@@ -7,9 +7,10 @@ from sklearn.model_selection import train_test_split
 api = KaggleApi()
 api.authenticate()
 
+
 # Загрузка датасета
 try:
-    if os.path.exists(r".\data\car_data.csv") is True:
+    if os.path.exists("./data/car_data.csv") is True:
         pass
     else:
         api.dataset_download_files("volkanastasia/dataset-of-used-cars",
@@ -18,7 +19,7 @@ except Exception as e:
     print(e)
 
 # Чтение датасета
-df = pd.read_csv(r".\data\car_data.csv")
+df = pd.read_csv("./data/car_data.csv")
 
 # Разбиение на обучающую и тестовую выборки
 train, test = train_test_split(df, test_size=0.2, random_state=42,
@@ -27,17 +28,17 @@ train, test = train_test_split(df, test_size=0.2, random_state=42,
 
 # Сохранение обучающей и тестовой выборок
 try:
-    if os.path.exists(r".\data\train.csv") is True:
+    if os.path.exists("./data/train.csv") is True:
         pass
     else:
-        train.to_csv(r".\data\train.csv")
+        train.to_csv("./data/train.csv")
 except Exception as e:
     print(e)
 
 try:
-    if os.path.exists(r".\data\test.csv") is True:
+    if os.path.exists("./data/test.csv") is True:
         pass
     else:
-        test.to_csv(r".\data\test.csv")
+        test.to_csv("./data/test.csv")
 except Exception as e:
     print(e)

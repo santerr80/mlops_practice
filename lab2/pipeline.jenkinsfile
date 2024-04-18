@@ -1,12 +1,23 @@
 pipeline {
     agent any
+
     stages {
-     stage('get_data') {
-                steps {
-                    withPythonEnv('python'){
-                        echo 'Get data'
-                    }
-                }
+        stage('get_data') {
+            steps {
+                pwsh "C:/Users/Santerr80/OneDrive/Документы/GitHub/myenv/Scripts/python.exe \"C:/Users/Santerr80/OneDrive/Документы/GitHub/mlops_practice/lab2/load_dataset.py\""
             }
-     }
+        }
+        stage('train_model') {
+            steps {
+                pwsh "C:/Users/Santerr80/OneDrive/Документы/GitHub/myenv/Scripts/python.exe \"C:/Users/Santerr80/OneDrive/Документы/GitHub/mlops_practice/lab2/training_model.py\""
+            }
+            
+        }
+        stage('test_model') {
+            steps {
+                pwsh "C:/Users/Santerr80/OneDrive/Документы/GitHub/myenv/Scripts/python.exe \"C:/Users/Santerr80/OneDrive/Документы/GitHub/mlops_practice/lab2/test_model.py\""
+            }
+            
+        }
+    }
 }
