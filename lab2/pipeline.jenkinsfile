@@ -3,8 +3,8 @@ pipeline {
     stages {
      stage('get_data') {
                 steps {
-                    withPythonEnv('D:/Python/Environments/.venv/Scripts'){
-                        sh 'python C:/Users/Santerr80/OneDrive/Документы/GitHub/mlops_practice/lab2/load_dataset.py'
+                    withPythonEnv('python'){
+                        echo 'Get data'
                     }
                 }
             }
