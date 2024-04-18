@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage('requirements') {
+            steps {
+                pwsh "C:/Users/Santerr80/OneDrive/Документы/GitHub/myenv/Scripts/pip.exe install -r \"C:/Users/Santerr80/OneDrive/Документы/GitHub/mlops_practice/lab2/requirements.txt\""
+            }
+        }
         stage('get_data') {
             steps {
                 pwsh "C:/Users/Santerr80/OneDrive/Документы/GitHub/myenv/Scripts/python.exe \"C:/Users/Santerr80/OneDrive/Документы/GitHub/mlops_practice/lab2/load_dataset.py\""
