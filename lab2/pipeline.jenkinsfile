@@ -3,8 +3,7 @@ pipeline {
     stages {
      stage('get_data') {
                 steps {
-                    withPythonEnv('python'){
-                        echo 'Get data'
+                    sh set PATH=%PATH%
                     }
                 }
             }
