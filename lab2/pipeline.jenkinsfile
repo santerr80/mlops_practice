@@ -1,9 +1,11 @@
 pipeline {
     agent any
     stages {
-     stage('Hello') {
+     stage('get_data') {
                 steps {
-                    echo 'Hello world'
+                    withPythonEnv('D:\Python\Environments\.venv\Scripts'){
+                        sh 'python C:\Users\Santerr80\OneDrive\Документы\GitHub\mlops_practice\lab2\load_dataset.py'
+                    }
                 }
             }
      }
