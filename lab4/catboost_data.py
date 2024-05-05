@@ -2,6 +2,9 @@ from catboost.datasets import titanic
 import pandas as pd
 import os
 
+from sklearn.preprocessing import OneHotEncoder
+
+
 # загружаем датасет
 titanic_train, titanic_test = titanic()
 
@@ -19,15 +22,10 @@ try:
 except Exception as e:
     print(e)
 
-# выведем строки датасета
-print(titanic_test)
 
 # внесем изменения в датасет
 titanic_test.iloc[0, 3] = 'female'
 titanic_test.iloc[0, 4] = 52.0
-
-# выведем первые строки датасета
-print(titanic_test.head())
 
 # сохраняем датасет в csv файл
 titanic_test.to_csv(r"C:\Users\Santerr80\OneDrive\Документы\GitHub\mlops_practice\lab4\datasets\titanic.csv", index=False)
@@ -35,12 +33,28 @@ titanic_test.to_csv(r"C:\Users\Santerr80\OneDrive\Документы\GitHub\mlop
 # заполним пропуски в данных столбца Age средним значением
 titanic_test['Age'] = titanic_test['Age'].fillna(titanic_test['Age'].mean())
 
-# выведем первые строки датасета
-print(titanic_test)
 
 # сохраняем датасет в csv файл
 titanic_test.to_csv(r"C:\Users\Santerr80\OneDrive\Документы\GitHub\mlops_practice\lab4\datasets\titanic.csv", index=False)
 
+# кодируем столбец Sex
+enc = OneHotEncoder(handle_unknown='ignore')
 
+# подготовка данных
+X = titanic_test['Sex']
 
+# кодирование
+enc.fit(X.values.reshape(-1, 1))
+
+# преобразование
+y = enc.transform(X.values.reshape(-1, 1)).toarray()
+
+# создание датафрейма
+y = pd.DataFrame(y, columns=['female', 'male']) 
+
+# объединение датасетов
+titanic_test = pd.concat([titanic_test, y], axis=1)
+
+# сохраняем датасет в csv файл
+titanic_test.to_csv(r"C:\Users\Santerr80\OneDrive\Документы\GitHub\mlops_practice\lab4\datasets\titanic.csv", index=False)
 
