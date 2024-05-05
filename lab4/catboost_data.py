@@ -23,7 +23,7 @@ except Exception as e:
     print(e)
 
 
-# внесем изменения в датасет
+# внесем изменения в первую строку датасета
 titanic_test.iloc[0, 3] = 'female'
 titanic_test.iloc[0, 4] = 52.0
 
@@ -37,10 +37,10 @@ titanic_test['Age'] = titanic_test['Age'].fillna(titanic_test['Age'].mean())
 # сохраняем датасет в csv файл
 titanic_test.to_csv(r"C:\Users\Santerr80\OneDrive\Документы\GitHub\mlops_practice\lab4\datasets\titanic.csv", index=False)
 
-# кодируем столбец Sex
+# создаем кодировщик
 enc = OneHotEncoder(handle_unknown='ignore')
 
-# подготовка данных
+# подготовка данных для кодирования
 X = titanic_test['Sex']
 
 # кодирование
@@ -49,12 +49,12 @@ enc.fit(X.values.reshape(-1, 1))
 # преобразование
 y = enc.transform(X.values.reshape(-1, 1)).toarray()
 
-# создание датафрейма
+# создание датафрейма преобразования
 y = pd.DataFrame(y, columns=['female', 'male']) 
 
-# объединение датасетов
+# объединение датафреймов
 titanic_test = pd.concat([titanic_test, y], axis=1)
 
-# сохраняем датасет в csv файл
+# сохраняем обновленный датасет в csv файл
 titanic_test.to_csv(r"C:\Users\Santerr80\OneDrive\Документы\GitHub\mlops_practice\lab4\datasets\titanic.csv", index=False)
 
